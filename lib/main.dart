@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/pages/aboutuspage.dart';
+import 'package:myapp/pages/first_page.dart';
+import 'package:myapp/pages/homepage.dart';
+import 'package:myapp/pages/settingpage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,52 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:const HomePage(),
-      theme:ThemeData(
-        useMaterial3: false
-      ),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget{
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:AppBar(
-        title: const Text('Good father'),
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Row(
-          children: [
-            coll("Forger familly"),          ],
-        ),
-      )
-    );
-  }
-  coll(String role_ortu) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          Image.asset('images/asusila.jpg',height:500,width:375,),
-          Column(
-            mainAxisSize:MainAxisSize.max,
-            mainAxisAlignment:MainAxisAlignment.start,
-            children:[
-              Text('$role_ortu 1',style: TextStyle(fontSize: 23,color: Colors.green,),)
-            ],
-          ),
-        ],
-      ),
+      debugShowCheckedModeBanner: false,
+      home: FirstPage(),
+      routes: {
+        '/firstpage' : (context) => FirstPage(),
+        '/homepage': (context) => Homepage(),
+        '/settingpage': (context) => SettingPage(),
+        '/aboutuspage': (context) => Aboutuspage(),
+      },
     );
   }
 }
