@@ -1,46 +1,57 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-class FirstPage extends StatelessWidget {
-  const FirstPage({super.key});
+import 'package:flutter/material.dart';
+import 'package:myapp/pages/homepage.dart';
+import 'package:myapp/pages/profilepage.dart';
+import 'package:myapp/pages/settingpage.dart';
+
+
+class FirstPage extends StatefulWidget {
+  FirstPage({Key? key}) : super(key: key);
+
+  @override
+  _FirstPageState createState() => _FirstPageState();
+}
+
+class _FirstPageState extends State<FirstPage> {
+  int _selectedIndex = 0;
+
+  void _navigateBottomBar(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  final List _pages = [
+    Homepage(),
+    Profilepage(),
+    SettingPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("First Page")),
-      drawer: Drawer(
-        backgroundColor: Colors.lightBlue[100],
-        child: Column(
-          children: [
-            const DrawerHeader(
-              child: Icon(
-                Icons.inbox,
-                size: 48,
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text("H o m e"),
-              onTap: () {
-                Navigator.pushNamed(context, '/homepage');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text("S e t t i n g s"),
-              onTap: () {
-                Navigator.pushNamed(context, '/settingpage');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.question_answer),
-              title: const Text("About us"),
-              onTap: () {
-                Navigator.pushNamed(context, '/aboutuspage');
-              },
-            ),
-          ],
-        ),
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _navigateBottomBar,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
       ),
     );
   }
 }
+
